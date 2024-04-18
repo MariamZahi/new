@@ -1,5 +1,1 @@
-streamlit
-sympy
-pint
-torch
-hydra
+nvidia-modulus.sym==1.4.0
