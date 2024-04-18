@@ -1,29 +1,33 @@
-from sympy import Symbol, Eq
-import modulus.sym
-from modulus.sym.hydra import instantiate_arch, ModulusConfig
-from modulus.sym.solver import Solver
-from modulus.sym.domain import Domain
-from modulus.sym.geometry.primitives_2d import Rectangle, Circle
-from modulus.sym.domain.constraint import (
- PointwiseBoundaryConstraint,
- PointwiseInteriorConstraint,
-)
-from modulus.sym.domain.validator import PointwiseValidator
-from modulus.sym.domain.inferencer import PointwiseInferencer
-from modulus.sym.utils.io import InferencerPlotter
-from modulus.sym.key import Key
-from modulus.sym.node import Node
-from modulus.sym.eq.pdes.linear_elasticity import LinearElasticityPlaneStress
-from modulus.sym.eq.pdes.linear_elasticity import LinearElasticity
-from modulus.sym.hydra.utils import compose
-from modulus.sym.hydra import to_yaml
-cfg = compose(config_path="conf", config_name="config")
-# print(to_yaml(cfg))
-import matplotlib.pyplot as plt
-from PIL import Image
-from io import BytesIO
-
 import streamlit as st
+
+try:
+  from sympy import Symbol, Eq
+  import modulus.sym
+  from modulus.sym.hydra import instantiate_arch, ModulusConfig
+  from modulus.sym.solver import Solver
+  from modulus.sym.domain import Domain
+  from modulus.sym.geometry.primitives_2d import Rectangle, Circle
+  from modulus.sym.domain.constraint import (
+   PointwiseBoundaryConstraint,
+   PointwiseInteriorConstraint,
+  )
+  from modulus.sym.domain.validator import PointwiseValidator
+  from modulus.sym.domain.inferencer import PointwiseInferencer
+  from modulus.sym.utils.io import InferencerPlotter
+  from modulus.sym.key import Key
+  from modulus.sym.node import Node
+  from modulus.sym.eq.pdes.linear_elasticity import LinearElasticityPlaneStress
+  from modulus.sym.eq.pdes.linear_elasticity import LinearElasticity
+  from modulus.sym.hydra.utils import compose
+  from modulus.sym.hydra import to_yaml
+  cfg = compose(config_path="conf", config_name="config")
+  # print(to_yaml(cfg))
+  import matplotlib.pyplot as plt
+  from PIL import Image
+  from io import BytesIO
+except Exception as e:
+  st.write(e)
+  
 
 # ---------- Start of Streamlit app
 
