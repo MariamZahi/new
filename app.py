@@ -1,5 +1,5 @@
 import streamlit as st
-
+import traceback
 
 try:
     errors = []
@@ -243,10 +243,12 @@ try:
             )
             domain.add_inferencer(point_cloud_inference, "inf_data")
             invar, outpred = point_cloud_inference.eval_epoch()
+            print(invar, outpred)
             input_sample = {'x': invar['x'], 'y': invar['y']}
+            print(input_sample)
             return point_cloud_inference.plotter(input_sample, outpred)
         except Exception as e:
-            print(st.write(e))
+            print(st.write(traceback.format_exc()))
             return []
 
         
@@ -302,11 +304,10 @@ try:
                 image = Image.open(buffer)
                 st.image(image)
         except Exception  as e:
-            print(st.write(e))
+            print(st.write(e), traceback.format_exc())
 except Exception  as e:
-    print(st.write(e))
+    print(st.write(e), traceback.format_exc())
 
 
           
 #     print(type(result), len(result))
-
