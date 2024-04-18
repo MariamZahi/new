@@ -1,1 +1,2 @@
 streamlit
+nvidia-modulus.sym==1.3.0
