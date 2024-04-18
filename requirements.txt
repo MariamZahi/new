@@ -21,3 +21,5 @@ matplotlib
 treelib
 s3fs
 tqdm
+h5py
+vtk
