@@ -1,33 +1,115 @@
 import streamlit as st
+errors = []
+
+try:  
+  from sympy import Symbol, Eq
+except Exception as e:
+  errors.append(e)
 
 try:
-  from sympy import Symbol, Eq
   import modulus.sym
+except Exception as e:
+  errors.append(e)
+
+
+try:
   from modulus.sym.hydra import instantiate_arch, ModulusConfig
+except Exception as e:
+  errors.append(e)
+
+
+try:
   from modulus.sym.solver import Solver
+except Exception as e:
+  errors.append(e)
+
+try:
   from modulus.sym.domain import Domain
+except Exception as e:
+  errors.append(e)
+
+try:
   from modulus.sym.geometry.primitives_2d import Rectangle, Circle
+except Exception as e:
+  errors.append(e)
+
+try:
   from modulus.sym.domain.constraint import (
    PointwiseBoundaryConstraint,
    PointwiseInteriorConstraint,
   )
+except Exception as e:
+  errors.append(e)
+
+try:
   from modulus.sym.domain.validator import PointwiseValidator
+except Exception as e:
+  errors.append(e)
+
+try:
   from modulus.sym.domain.inferencer import PointwiseInferencer
+except Exception as e:
+  errors.append(e)
+
+try:
   from modulus.sym.utils.io import InferencerPlotter
+except Exception as e:
+  errors.append(e)
+
+try:
   from modulus.sym.key import Key
+except Exception as e:
+  errors.append(e)
+
+try:
   from modulus.sym.node import Node
+except Exception as e:
+  errors.append(e)
+
+try:
   from modulus.sym.eq.pdes.linear_elasticity import LinearElasticityPlaneStress
+except Exception as e:
+  errors.append(e)
+
+try:
   from modulus.sym.eq.pdes.linear_elasticity import LinearElasticity
+except Exception as e:
+  errors.append(e)
+
+try:
   from modulus.sym.hydra.utils import compose
+except Exception as e:
+  errors.append(e)
+
+try:
   from modulus.sym.hydra import to_yaml
+except Exception as e:
+  errors.append(e)
+
+try:
   cfg = compose(config_path="conf", config_name="config")
+except Exception as e:
+  errors.append(e)
+
   # print(to_yaml(cfg))
+try:
   import matplotlib.pyplot as plt
+except Exception as e:
+  errors.append(e)
+
+try:
   from PIL import Image
+except Exception as e:
+  errors.append(e)
+
+try:
   from io import BytesIO
 except Exception as e:
-  st.write(e)
-  
+  errors.append(e)
+
+print(errors)
+if errors:
+    st.write(' '.join(errors))  
 
 # ---------- Start of Streamlit app
 
