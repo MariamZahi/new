@@ -2,3 +2,4 @@ streamlit
 sympy
 pint
 torch
+hydra
