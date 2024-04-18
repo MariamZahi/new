@@ -7,6 +7,7 @@ WORKDIR /app
 COPY requirements.txt requirements.txt
 RUN pip install -r requirements.txt
 
+RUN apt-get update && apt-get install ffmpeg libsm6 libxext6  -y
 COPY conf conf
 COPY modulus modulus
 COPY app.py app.py
