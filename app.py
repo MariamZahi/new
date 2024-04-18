@@ -109,7 +109,7 @@ except Exception as e:
 
 print(errors)
 if errors:
-    st.write(' '.join(errors))  
+    st.write([' '.join(str(x) for x in errors)])
 
 # ---------- Start of Streamlit app
 
