@@ -1,2 +1,2 @@
-nvidia-modulus.sym==1.4.0
+#nvidia-modulus.sym==1.4.0
 streamlit
