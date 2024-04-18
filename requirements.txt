@@ -1,5 +1,5 @@
 streamlit
-nvidia-modulus.sym==1.4.0 --no-deps
+nvidia-modulus.sym==1.4.0
 matplotlib
 hydra-core>=1.2.0
 termcolor>=2.1.1
