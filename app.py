@@ -130,7 +130,7 @@ try:
 
 
 
-    def run():
+    def run(user_input):
         try:
             # specify Panel properties
             E = 73.0 * 10**9  # Pa
@@ -217,8 +217,9 @@ try:
             sigma_hoop_upper = 56.5 * 10**6 * sigma_normalization
             sigma_hoop_range = (sigma_hoop_lower, sigma_hoop_upper)
             param_ranges = {sigma_hoop: sigma_hoop_range}
-            inference_param_ranges = {sigma_hoop: 46 * 10**6 * sigma_normalization}
-
+#            inference_param_ranges = {sigma_hoop: 46 * 10**6 * sigma_normalization}
+            inference_param_ranges = {sigma_hoop: user_input['val'] * 10**6 * sigma_normalization}
+#             print('inference_param_ranges: ', inference_param_ranges)
             # bounds
             bounds_x = (panel_origin[0], panel_origin[0] + panel_dim[0])
             bounds_y = (panel_origin[1], panel_origin[1] + panel_dim[1])
@@ -230,7 +231,7 @@ try:
 
             # add inferencer data
             invar_numpy = geo.sample_interior(
-                100,
+                10,
                 bounds={x: bounds_x, y: bounds_y},
                 parameterization=inference_param_ranges,
             )
@@ -243,9 +244,9 @@ try:
             )
             domain.add_inferencer(point_cloud_inference, "inf_data")
             invar, outpred = point_cloud_inference.eval_epoch()
-            print(invar, outpred)
+#             print(invar, outpred)
             input_sample = {'x': invar['x'], 'y': invar['y']}
-            print(input_sample)
+#             print(input_sample)
             return point_cloud_inference.plotter(input_sample, outpred)
         except Exception as e:
             print(st.write(traceback.format_exc()))
@@ -253,28 +254,18 @@ try:
 
         
 
-    col1, col2 = st.columns([1,1])
+    col1 = st.columns([1])
 
-
-    val = col1.number_input(
-        "Value 1",
-        value=None,
-        min_value=0,
-        max_value=100,
-        placeholder="Enter Value ...", 
-        format="%d",
-        label_visibility="visible",
+    val = col1[0].number_input(
+        "Sigma",
+        min_value=46.0,  # Adjust min_value to be a float
+        max_value=56.5,
+#         step=0.1,  # Adjust step to be compatible with floating-point numbers
+        placeholder="Enter Sigma Value ...", 
+        format="%.1f",
+        key="sigma_input",  # Add a key for the input to ensure correct reactivity
     )
 
-    val1 = col1.number_input(
-        "Value 2",
-        value=None,
-        min_value=0,
-        max_value=100,
-        placeholder="Enter Value ...", 
-        format="%d",
-        label_visibility="visible",
-    )
 
     submit = st.button("Predict", help="Click here to start prediction", 
                         type="primary", use_container_width=True,
@@ -292,10 +283,9 @@ try:
         # Create a dictionary with the user's input values  
         user_input = {  
             "val": val,
-            "Val1": val1, 
         }
         try:
-            result = run()
+            result = run(user_input)
             for x in result:
                 img, name = x
                 buffer = BytesIO()
